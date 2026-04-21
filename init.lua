@@ -53,8 +53,32 @@ local jai_errfmt = [[%f:%l\,%v: %t%\a\*:%m]]
 vim.o.errorformat = jai_errfmt .. ',' .. vim.o.errorformat
 
 -- keymap to open the Jai installation directory in a new tab, for :grep
-vim.keymap.set('n', '<space>sj', function()
+vim.keymap.set('n', '<space>jm', function()
   local jaipath = '~/opt/jai'
   vim.cmd.tabedit(jaipath .. '/modules/Basic/Print.jai')
   vim.cmd.tcd(jaipath)
-end, { desc = 'Search Jai installation' })
+end, { desc = 'Open Jai modules (and how_tos) directory' })
+
+-- Select a jai file to build
+vim.keymap.set('n', '<space>jb', function()
+  local jai_files = vim.fs.find(function(name, path)
+    return string.match(name, '.*%.jai$')
+  end, { limit = 50, type = 'file' })
+  if jai_files then
+    vim.ui.select(jai_files, { prompt='Select a file to build'}, function(item)
+      if item then
+        vim.opt.makeprg = 'jai "' .. item .. '"'
+        print("Make program set to " .. vim.opt.makeprg:get())
+      end
+    end)
+  else
+    print("No Jai files found")
+  end
+end, { desc = 'Select a Jai file to build' })
+
+-- m<space> to call :make, to build what we just put into the makeprg above
+vim.keymap.set('n', 'm<CR>', '<cmd>make<CR>')
+
+-- Use UI2 if available. See :help ui2
+local _, ui2 = pcall(require, 'vim._core.ui2')
+if ui2 then ui2.enable() end

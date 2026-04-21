@@ -6,7 +6,10 @@ It configures:
 * [Jails](https://github.com/SogoCZE/Jails.git) LSP Server
 * [Treesitter-Jai](https://github.com/constantitus/tree-sitter-jai) for
   highlighting and other treesitter features.
-* Keymap to open the Jai modules directory
+* Some helpful keymaps
+  * ` jm` to open the Jai modules directory in a new tab
+  * ` jb` to select a Jai file to build (future :make will build this)
+  * `m<CR>` to build (calls :make)
 
 ```sh
 # Unix-like
