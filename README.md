@@ -7,6 +7,7 @@ It configures:
 * [Jails](https://github.com/SogoCZE/Jails.git) LSP Server
 * [Treesitter-Jai](https://github.com/constantitus/tree-sitter-jai) for
   highlighting and other treesitter features.
+* Debugger
 * Some helpful keymaps
 
 ```sh
