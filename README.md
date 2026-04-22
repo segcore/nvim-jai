@@ -1,15 +1,13 @@
 # Neovim Configuration for programming in Jai
 
 A minimal neovim setup for programming in Jai. Probably requires neovim 0.12+.
+Tested on NVIM v0.12.2-dev-92+gffb0ebb752.
 
 It configures:
 * [Jails](https://github.com/SogoCZE/Jails.git) LSP Server
 * [Treesitter-Jai](https://github.com/constantitus/tree-sitter-jai) for
   highlighting and other treesitter features.
 * Some helpful keymaps
-  * ` jm` to open the Jai modules directory in a new tab
-  * ` jb` to select a Jai file to build (future :make will build this)
-  * `m<CR>` to build (calls :make)
 
 ```sh
 # Unix-like
@@ -36,6 +34,33 @@ the init.lua, open a `jai` file.
     vim.lsp: Active Clients
     - jails (id: 1)
     ```
+
+## Tips
+
+* Keymaps:
+  * ` jm` to open the Jai modules directory in a new tab
+    * `:grep '^print ::'` for grep, then use the quick-fix list to navigate matches
+    * `]q` to go to the next quick-fix item (eg. the next :grep match)
+    * `[q` to go to the prev quick-fix item
+  * ` jb` to select a Jai file to build (future :make will build this)
+  * `m<CR>` to build (calls :make)
+    * Build errors are added to the quick-fix list. So `[q` and `]q` to navigate them.
+* LSP:
   * Go-to definition with `ctrl-]` (get back with `ctrl-t`)
-  * More default key-mappings can be read at `:help lsp-defaults`
-    * In insert-mode, `ctrl-X ctrl-O` triggers the completion menu
+    * `<F12>` keymap to use LSP: go-to definition
+  * In insert-mode, `ctrl-X ctrl-O` triggers the completion menu
+  * In insert-mode, `ctrl-S` opens signature help menu
+  * `gO` to view top-level symbols in the location list. `]l` to navigate.
+  * Diagnostics:
+    * `]d` to go-to-next diagnostic. `[d` for previous.
+    * `<C-w>d` to open the diagnostic hover floating window (to view more details)
+* Treesitter should colour things automatically.
+  * `:checkhealth vim.treesitter`
+  * `:InspectTree` to view the treesitter parse tree
+  * In visual mode, `an` and `in` select around/in the parent treesitter-node
+* Debugging:
+  * Add a breakpoint with ` db`
+  * `F1` or `F5` to start debugging
+  * ` dd` to show hover information
+  * `ctrl-W ctrl-h/j/k/l` to move between windows
+  * `a` in the watch window to add a new watch-expression
